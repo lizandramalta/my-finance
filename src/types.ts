@@ -12,6 +12,7 @@ declare global {
 }
 
 export type RootStackParamList = {
+  Login: undefined
   Root: NavigatorScreenParams<RootTabParamList> | undefined
   NextMonthSimulation: undefined
   AddRelease: undefined

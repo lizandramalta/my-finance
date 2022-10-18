@@ -1,5 +1,5 @@
 import { Button, View } from 'react-native'
-import { RootTabScreenProps } from '../../navigation/types'
+import { RootTabScreenProps } from '../../types'
 
 export default function Home({ navigation }: RootTabScreenProps<'Home'>) {
   return (

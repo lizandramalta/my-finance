@@ -1,5 +1,5 @@
 import { View, Button } from 'react-native'
-import { RootTabScreenProps } from '../../navigation/types'
+import { RootTabScreenProps } from '../../types'
 
 export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   return (
