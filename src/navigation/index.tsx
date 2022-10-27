@@ -6,14 +6,17 @@ import Fixed from '../screens/fixed'
 import Cards from '../screens/cards'
 import Extract from '../screens/extract'
 import Profile from '../screens/profile'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import {
+  BottomTabNavigationProp,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs'
 import NextMonthSimulation from '../screens/home/nextMonthSimulation'
 import AddRelease from '../screens/home/addRelease'
 import FixedInfo from '../screens/fixed/fixedInfo'
 import Login from '../screens/login'
 import { colors, dimension, icons } from '../contants'
 import { Ionicons } from '@expo/vector-icons'
-import { IconProps } from '@expo/vector-icons/build/createIconSet'
+import { TouchableOpacity } from 'react-native'
 
 export default function Navigation() {
   return (
@@ -25,9 +28,26 @@ export default function Navigation() {
 
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
+type BackButtonProps = {
+  navigation: BottomTabNavigationProp<BackButtonProps>
+}
+
+const BackButton = ({ navigation }: BackButtonProps) => (
+  <TouchableOpacity onPress={navigation.goBack}>
+    <Ionicons name="arrow-back-circle" size={32} color={colors.blue} />
+  </TouchableOpacity>
+)
+
 function RootNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      initialRouteName="Login"
+      screenOptions={({ navigation }) => ({
+        headerLeft: () => <BackButton navigation={navigation} />,
+        headerTransparent: true,
+        headerTitle: '',
+      })}
+    >
       <Stack.Screen
         name="Login"
         component={Login}
@@ -74,6 +94,14 @@ function BottomTabNavigator() {
           fontFamily: 'QuicksandMedium',
           fontSize: 14,
         },
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: colors.softBlue,
+        },
+        headerTitleStyle: {
+          fontSize: 22,
+          fontFamily: 'QuicksandMedium',
+        },
       })}
     >
       <BottomTab.Screen
@@ -86,7 +114,17 @@ function BottomTabNavigator() {
         component={Cards}
         options={{ title: 'Cartões' }}
       />
-      <BottomTab.Screen name="Home" component={Home} />
+      <BottomTab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerTitle: '',
+          headerStyle: {
+            height: dimension.height * 0.05,
+            backgroundColor: colors.softBlue,
+          },
+        }}
+      />
       <BottomTab.Screen
         name="Extract"
         component={Extract}
