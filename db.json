@@ -1,0 +1,22 @@
+{
+  "fixed-releases": [
+    {
+      "id": 1,
+      "title": "Salário",
+      "value": 4000,
+      "input": true
+    },
+    {
+      "id": 2,
+      "title": "Água",
+      "value": 35.9,
+      "input": false
+    },
+    {
+      "id": 3,
+      "title": "Internet e celular",
+      "value": 199.99,
+      "input": false
+    }
+  ]
+}
