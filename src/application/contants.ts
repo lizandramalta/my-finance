@@ -14,7 +14,7 @@ export const colors = {
   softBlue: '#9AAFF2',
   green: '#5ABF73',
   softGreen: '#E0F2E4',
-  form: '#F4F4F4',
+  form: '#e1e1e1',
 }
 
 export const icons = {
