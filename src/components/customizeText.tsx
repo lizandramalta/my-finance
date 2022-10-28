@@ -1,6 +1,6 @@
 import { StyleSheet, TextProps, Text } from 'react-native'
 
-interface MyTextProps {
+export interface CustomizeTextProps {
   type?: 'regular' | 'medium' | 'bold'
 }
 
@@ -8,7 +8,7 @@ export default function CustomizeText({
   children,
   style,
   type = 'regular',
-}: MyTextProps & TextProps) {
+}: CustomizeTextProps & TextProps) {
   return <Text style={[style, styles[type]]}>{children}</Text>
 }
 
