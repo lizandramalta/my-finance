@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import { request } from '../../application/request'
 import CustomizeButton from '../../components/customizeButton'
-import { RootTabScreenProps, FixedReleases } from '../../types'
+import { RootTabScreenProps, FixedReleases } from '../../application/types'
 import Card from './components/card'
 import InOrOut from '../../components/inOrOut'
 
@@ -45,6 +45,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
           <Card props={item} key={item.id} />
         ))}
         <CustomizeButton add style={styles.button} />
+        <InOrOut />
       </ScrollView>
     </SafeAreaView>
   )
