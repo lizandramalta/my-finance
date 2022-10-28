@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from 'react-native'
-import { colors, dimension } from '../contants'
+import { colors, dimension } from '../application/contants'
 import Text from './customizeText'
 
 interface CustomizeButtonProps extends TouchableOpacityProps {
