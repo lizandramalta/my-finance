@@ -5,7 +5,7 @@ import {
   SafeAreaView,
   RefreshControl,
 } from 'react-native'
-import { request } from '../../application/request'
+import { get } from '../../application/request'
 import CustomizeButton from '../../components/customizeButton'
 import { RootTabScreenProps, FixedReleases } from '../../application/types'
 import Card from './components/card'
@@ -16,11 +16,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   const [refreshing, setRefreshing] = useState(false)
 
   async function getFixedReleases() {
-    try {
-      const response = await request('fixed-releases')
-      const json = await response.json()
-      setFixedReleases(json)
-    } catch (error) {}
+    setFixedReleases(await get('fixed-releases'))
   }
 
   const onRefresh = useCallback(() => {
