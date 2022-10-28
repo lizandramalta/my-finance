@@ -35,3 +35,12 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >
+
+//Responses Api
+
+export type FixedReleases = {
+  id: number
+  title: string
+  value: number
+  input: boolean
+}
