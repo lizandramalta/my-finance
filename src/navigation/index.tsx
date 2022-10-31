@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { NavigationContainer } from '@react-navigation/native'
-import { RootStackParamList, RootTabParamList } from '../types'
+import { RootStackParamList, RootTabParamList } from '../application/types'
 import Home from '../screens/home'
 import Fixed from '../screens/fixed'
 import Cards from '../screens/cards'

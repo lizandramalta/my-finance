@@ -1,17 +1,22 @@
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import {
+  StyleSheet,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native'
 import CustomizeText from '../../../components/customizeText'
 import Monetary from '../../../components/monetary'
 import { colors, dimension } from '../../../application/contants'
-import { FixedReleases } from '../../../types'
+import { FixedReleases } from '../../../application/types'
 
-interface CardProps {
+interface CardProps extends TouchableOpacityProps {
   props: FixedReleases
 }
 
-export default function Card({ props }: CardProps) {
+export default function Card({ props, onPress }: CardProps) {
   return (
     <TouchableOpacity
       style={[styles.container, props.input ? styles.input : styles.output]}
+      onPress={onPress}
     >
       <CustomizeText style={styles.font}>{props.title}</CustomizeText>
       <Monetary style={styles.font}>{props.value}</Monetary>
