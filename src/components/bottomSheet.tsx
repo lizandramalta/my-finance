@@ -5,6 +5,8 @@ import {
   Modal,
   TouchableOpacity,
   StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native'
 import { colors } from '../application/contants'
 
@@ -25,7 +27,10 @@ export default function BottomSheet({
         transparent={true}
         visible={bottomSheetVisible}
       >
-        <View style={styles.centeredView}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.centeredView}
+        >
           <View style={styles.modalView}>
             <TouchableOpacity
               style={{
@@ -39,7 +44,7 @@ export default function BottomSheet({
             </TouchableOpacity>
             {children}
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     </View>
   )
