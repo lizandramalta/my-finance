@@ -4,11 +4,12 @@ import { colors, dimension } from '../application/contants'
 import CustomizeText from './customizeText'
 
 interface InOrOutProps {
-  isOutput?: boolean
+  input: boolean
+  isInput?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export default function InOrOut({ isOutput = false }: InOrOutProps) {
-  const [typeSelected, setTypeSelected] = useState(isOutput ? 1 : 0)
+export default function InOrOut({ input = true, isInput }: InOrOutProps) {
+  const [typeSelected, setTypeSelected] = useState(input ? 0 : 1)
   const indexType = {
     input: 0,
     output: 1,
@@ -17,8 +18,15 @@ export default function InOrOut({ isOutput = false }: InOrOutProps) {
   const outputSelected = typeSelected === indexType.output
 
   function onSelect(index: number) {
-    if (inputSelected && index !== indexType.input) setTypeSelected(1)
-    if (outputSelected && index !== indexType.output) setTypeSelected(0)
+    if (inputSelected && index !== indexType.input) {
+      setTypeSelected(1)
+      isInput ? isInput(false) : null
+    }
+
+    if (outputSelected && index !== indexType.output) {
+      setTypeSelected(0)
+      isInput ? isInput(true) : null
+    }
   }
 
   const style = styles()
