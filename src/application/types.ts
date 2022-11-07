@@ -16,7 +16,7 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined
   NextMonthSimulation: undefined
   AddRelease: undefined
-  FixedInfo: undefined
+  FixedInfo: { release: FixedReleases }
 }
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -39,7 +39,7 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
 //Responses Api
 
 export type FixedReleases = {
-  id: number
+  id?: number
   title: string
   value: number
   input: boolean

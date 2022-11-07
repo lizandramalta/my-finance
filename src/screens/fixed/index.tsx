@@ -36,8 +36,11 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   }, [])
 
   useEffect(() => {
-    getFixedReleases()
-  }, [])
+    const update = navigation.addListener('focus', () => {
+      getFixedReleases()
+    })
+    return update
+  }, [navigation])
 
   function resetBottomSheet() {
     setTitleInput('')
@@ -52,7 +55,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
       value: handleMoneyInput(valueInput as string),
       input: input,
     }
-    post('fixed-releases', addRelease)
+    post('fixed-releases', JSON.stringify(addRelease))
     fixedReleases ? setFixedReleases([...fixedReleases, addRelease]) : null
     resetBottomSheet()
   }
@@ -100,7 +103,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
           <Card
             props={item}
             key={item.id}
-            onPress={() => navigation.navigate('FixedInfo', { id: item.id! })}
+            onPress={() => navigation.navigate('FixedInfo', { release: item! })}
           />
         ))}
         <CustomizeButton
