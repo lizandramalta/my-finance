@@ -44,3 +44,7 @@ export type FixedReleases = {
   value: number
   input: boolean
 }
+
+//Other types
+
+export type ReleaseTypes = 'Débito' | 'Crédito' | 'Parcelamento'
