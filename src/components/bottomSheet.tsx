@@ -57,7 +57,7 @@ function BottomSheet({ children }: BottomSheetProps, ref: Ref<BottomSheetRef>) {
                 alignItems: 'flex-end',
                 marginBottom: 16,
               }}
-              onPress={() => setBottomSheetVisible(false)}
+              onPress={hideBottomSheet}
             >
               <Ionicons name="close-circle" size={24} color={colors.blue} />
             </TouchableOpacity>
