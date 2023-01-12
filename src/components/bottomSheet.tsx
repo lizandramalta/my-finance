@@ -23,53 +23,53 @@ export interface BottomSheetRef {
   hideBottomSheet: () => void
 }
 
-const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
-  ({ children }: BottomSheetProps, ref: Ref<BottomSheetRef>) => {
-    const [bottomSheetVisible, setBottomSheetVisible] = useState(false)
+function BottomSheet({ children }: BottomSheetProps, ref: Ref<BottomSheetRef>) {
+  const [bottomSheetVisible, setBottomSheetVisible] = useState(false)
 
-    function showBottomSheet() {
-      setBottomSheetVisible(true)
-    }
-
-    function hideBottomSheet() {
-      setBottomSheetVisible(false)
-    }
-
-    useImperativeHandle(ref, () => ({
-      showBottomSheet,
-      hideBottomSheet,
-    }))
-
-    return (
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={bottomSheetVisible}
-        >
-          <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.centeredView}
-          >
-            <View style={styles.modalView}>
-              <TouchableOpacity
-                style={{
-                  width: '100%',
-                  alignItems: 'flex-end',
-                  marginBottom: 16,
-                }}
-                onPress={() => setBottomSheetVisible(false)}
-              >
-                <Ionicons name="close-circle" size={24} color={colors.blue} />
-              </TouchableOpacity>
-              {children}
-            </View>
-          </KeyboardAvoidingView>
-        </Modal>
-      </View>
-    )
+  function showBottomSheet() {
+    setBottomSheetVisible(true)
   }
-)
+
+  function hideBottomSheet() {
+    setBottomSheetVisible(false)
+  }
+
+  useImperativeHandle(ref, () => ({
+    showBottomSheet,
+    hideBottomSheet,
+  }))
+
+  return (
+    <View style={styles.centeredView}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={bottomSheetVisible}
+      >
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.centeredView}
+        >
+          <View style={styles.modalView}>
+            <TouchableOpacity
+              style={{
+                width: '100%',
+                alignItems: 'flex-end',
+                marginBottom: 16,
+              }}
+              onPress={() => setBottomSheetVisible(false)}
+            >
+              <Ionicons name="close-circle" size={24} color={colors.blue} />
+            </TouchableOpacity>
+            {children}
+          </View>
+        </KeyboardAvoidingView>
+      </Modal>
+    </View>
+  )
+}
+
+const MyBottomSheet = forwardRef(BottomSheet)
 
 const styles = StyleSheet.create({
   centeredView: {
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default BottomSheet
+export default MyBottomSheet

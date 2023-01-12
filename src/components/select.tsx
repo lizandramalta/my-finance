@@ -1,21 +1,27 @@
 import { Ionicons } from '@expo/vector-icons'
-import React, { useState } from 'react'
+import React, { forwardRef, Ref, useImperativeHandle, useState } from 'react'
 import { View, ViewProps, StyleSheet, TouchableOpacity } from 'react-native'
 import { colors } from '../application/contants'
 import CustomizeText from './customizeText'
 
-interface SelectProps extends ViewProps {
-  options: string[]
-  onChangeOption: () => void
+interface SelectProps<T> extends ViewProps {
+  options: T[]
 }
 
-export default function Select({ options, onChangeOption }: SelectProps) {
-  const [selectedOption, setSelectedOption] = useState('')
+export interface SelectRef<T> {
+  selectedOption: T | undefined
+}
+
+function Select<T>({ options }: SelectProps<T>, ref: Ref<SelectRef<T>>) {
+  const [selectedOption, setSelectedOption] = useState<T>()
   const [showOption, setShowOption] = useState(false)
 
-  function handleOption(option: string) {
+  useImperativeHandle(ref, () => ({
+    selectedOption,
+  }))
+
+  function handleOption(option: T) {
     setSelectedOption(option)
-    onChangeOption()
     setShowOption(false)
   }
 
@@ -25,10 +31,12 @@ export default function Select({ options, onChangeOption }: SelectProps) {
         {options.map((option) => (
           <TouchableOpacity
             style={styles.optionButton}
-            key={option}
+            key={option as string}
             onPress={() => handleOption(option)}
           >
-            <CustomizeText style={styles.optionText}>{option}</CustomizeText>
+            <CustomizeText style={styles.optionText}>
+              {option as string}
+            </CustomizeText>
           </TouchableOpacity>
         ))}
       </View>
@@ -39,7 +47,7 @@ export default function Select({ options, onChangeOption }: SelectProps) {
     <View style={styles.container}>
       <View style={styles.selectView}>
         <View style={styles.text}>
-          <CustomizeText>{selectedOption}</CustomizeText>
+          <CustomizeText>{selectedOption as string}</CustomizeText>
         </View>
         <TouchableOpacity onPress={() => setShowOption(true)}>
           <View style={styles.button}>
@@ -47,10 +55,12 @@ export default function Select({ options, onChangeOption }: SelectProps) {
           </View>
         </TouchableOpacity>
       </View>
-      {showOption ? renderOptions() : <></>}
+      {showOption && renderOptions()}
     </View>
   )
 }
+
+const MySelect = forwardRef(Select)
 
 const styles = StyleSheet.create({
   container: {
@@ -98,3 +108,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 })
+
+export default MySelect
