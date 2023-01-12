@@ -11,7 +11,7 @@ import { get, post } from '../../application/request'
 import CustomizeButton from '../../components/customizeButton'
 import { RootTabScreenProps, FixedReleases } from '../../application/types'
 import Card from './components/card'
-import BottomSheet from '../../components/bottomSheet'
+import BottomSheet, { BottomSheetRef } from '../../components/bottomSheet'
 import InOrOut from '../../components/inOrOut'
 import CustomizeText from '../../components/customizeText'
 import { colors, dimension } from '../../application/contants'
@@ -20,10 +20,10 @@ import { handleMoneyInput } from '../../application/utils'
 export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   const [fixedReleases, setFixedReleases] = useState<FixedReleases[]>()
   const [refreshing, setRefreshing] = useState(false)
-  const [bottomSheetVisible, setBottomSheetVisible] = useState(false)
   const [titleInput, setTitleInput] = useState<string>()
   const [valueInput, setValueInput] = useState<string>()
   const [input, isInput] = useState(true)
+  const bottomSheetRef = useRef<BottomSheetRef>(null)
 
   async function getFixedReleases() {
     setFixedReleases(await get('fixed-releases'))
@@ -46,7 +46,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
     setTitleInput('')
     setValueInput('')
     isInput(true)
-    setBottomSheetVisible(false)
+    bottomSheetRef.current?.hideBottomSheet()
   }
 
   function onConfirm() {
@@ -62,10 +62,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
 
   const renderBottomSheet = () => {
     return (
-      <BottomSheet
-        bottomSheetVisible={bottomSheetVisible}
-        setBottomSheetVisible={setBottomSheetVisible}
-      >
+      <BottomSheet ref={bottomSheetRef}>
         <InOrOut input={input} isInput={isInput} />
         <CustomizeText style={styles.label} type="medium">
           Título
@@ -109,7 +106,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
         <CustomizeButton
           add
           style={styles.button}
-          onPress={() => setBottomSheetVisible(true)}
+          onPress={() => bottomSheetRef.current?.showBottomSheet()}
         />
       </ScrollView>
       {renderBottomSheet()}
