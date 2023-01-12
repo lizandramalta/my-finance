@@ -1,26 +1,20 @@
 import { Ionicons } from '@expo/vector-icons'
-import React, { forwardRef, Ref, useImperativeHandle, useState } from 'react'
+import React, { useState } from 'react'
 import { View, ViewProps, StyleSheet, TouchableOpacity } from 'react-native'
 import { colors } from '../application/contants'
 import CustomizeText from './customizeText'
 
 interface SelectProps<T> extends ViewProps {
   options: T[]
+  onChangeOption: (item: T) => void
 }
 
-export interface SelectRef<T> {
-  selectedOption: T | undefined
-}
-
-function Select<T>({ options }: SelectProps<T>, ref: Ref<SelectRef<T>>) {
+export default function Select<T>({ options, onChangeOption }: SelectProps<T>) {
   const [selectedOption, setSelectedOption] = useState<T>()
   const [showOption, setShowOption] = useState(false)
 
-  useImperativeHandle(ref, () => ({
-    selectedOption,
-  }))
-
   function handleOption(option: T) {
+    onChangeOption(option)
     setSelectedOption(option)
     setShowOption(false)
   }
@@ -59,8 +53,6 @@ function Select<T>({ options }: SelectProps<T>, ref: Ref<SelectRef<T>>) {
     </View>
   )
 }
-
-const MySelect = forwardRef(Select)
 
 const styles = StyleSheet.create({
   container: {
@@ -108,5 +100,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 })
-
-export default MySelect
