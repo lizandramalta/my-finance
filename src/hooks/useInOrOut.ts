@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { InOrOut } from '../application/types'
+import { InOrOutType } from '../application/types'
 
-export default function useInOrOut(defaultInput: InOrOut) {
+export default function useInOrOut(defaultInput: InOrOutType) {
   const [inOrOutState, setInOrOutState] = useState(defaultInput)
 
-  function handleInOrOut(value: InOrOut) {
+  function handleInOrOut(value: InOrOutType) {
     if (value === 'input') setInOrOutState('input')
     else setInOrOutState('output')
   }

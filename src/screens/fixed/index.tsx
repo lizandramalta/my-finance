@@ -8,15 +8,14 @@ import {
   View,
 } from 'react-native'
 import { get, post } from '../../application/request'
-import CustomizeButton from '../../components/customizeButton'
 import { RootTabScreenProps, FixedReleases } from '../../application/types'
+import { BottomSheet, Button, InOrOut, Text } from '../../components'
 import Card from './components/card'
-import BottomSheet, { BottomSheetRef } from '../../components/bottomSheet'
-import InOrOut from '../../components/inOrOut'
-import CustomizeText from '../../components/customizeText'
+import { BottomSheetRef } from '../../components/bottomSheet'
 import { colors, dimension } from '../../application/contants'
 import { handleMoneyInput } from '../../application/utils'
 import useInOrOut from '../../hooks/useInOrOut'
+import useBottomSheet from '../../hooks/useBottomSheet'
 
 export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   const [fixedReleases, setFixedReleases] = useState<FixedReleases[]>()
@@ -25,6 +24,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   const [valueInput, setValueInput] = useState<string>()
   const { inOrOutState, handleInOrOut, reset } = useInOrOut('input')
   const bottomSheetRef = useRef<BottomSheetRef>(null)
+  const { showBottomSheet, hideBottomSheet } = useBottomSheet(bottomSheetRef)
 
   async function getFixedReleases() {
     setFixedReleases(await get('fixed-releases'))
@@ -47,7 +47,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
     setTitleInput('')
     setValueInput('')
     reset()
-    bottomSheetRef.current?.hideBottomSheet()
+    hideBottomSheet()
   }
 
   function onConfirm() {
@@ -65,26 +65,26 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
     return (
       <BottomSheet ref={bottomSheetRef}>
         <InOrOut input={inOrOutState} onSetStateInput={handleInOrOut} />
-        <CustomizeText style={styles.label} type="medium">
+        <Text style={styles.label} type="medium">
           Título
-        </CustomizeText>
+        </Text>
         <TextInput
           value={titleInput}
           onChangeText={setTitleInput}
           style={styles.input}
         />
-        <CustomizeText style={styles.label} type="medium">
+        <Text style={styles.label} type="medium">
           Valor
-        </CustomizeText>
+        </Text>
         <TextInput
           value={valueInput}
           onChangeText={setValueInput}
           style={styles.input}
           keyboardType="numeric"
         />
-        <CustomizeButton style={styles.buttonModal} onPress={onConfirm}>
+        <Button style={styles.buttonModal} onPress={onConfirm}>
           Confirmar
-        </CustomizeButton>
+        </Button>
       </BottomSheet>
     )
   }
@@ -104,11 +104,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
             onPress={() => navigation.navigate('FixedInfo', { release: item! })}
           />
         ))}
-        <CustomizeButton
-          add
-          style={styles.button}
-          onPress={() => bottomSheetRef.current?.showBottomSheet()}
-        />
+        <Button add style={styles.button} onPress={() => showBottomSheet()} />
       </ScrollView>
       {renderBottomSheet()}
     </SafeAreaView>

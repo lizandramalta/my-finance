@@ -5,7 +5,7 @@ import {
   TouchableOpacityProps,
 } from 'react-native'
 import { colors, dimension } from '../application/contants'
-import Text from './customizeText'
+import Text from './text'
 
 interface CustomizeButtonProps extends TouchableOpacityProps {
   add?: boolean

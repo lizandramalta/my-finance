@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons'
 import React, { useState } from 'react'
 import { View, ViewProps, StyleSheet, TouchableOpacity } from 'react-native'
 import { colors } from '../application/contants'
-import CustomizeText from './customizeText'
+import CustomizeText from './text'
 
 interface SelectProps<T> extends ViewProps {
   options: T[]

@@ -1,5 +1,5 @@
 import { TextProps } from 'react-native'
-import CustomizeText, { CustomizeTextProps } from './customizeText'
+import CustomizeText, { CustomizeTextProps } from './text'
 
 export default function Monetary({
   style,

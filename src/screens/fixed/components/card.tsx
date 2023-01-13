@@ -3,8 +3,7 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from 'react-native'
-import CustomizeText from '../../../components/customizeText'
-import Monetary from '../../../components/monetary'
+import { Monetary, Text } from '../../../components'
 import { colors, dimension } from '../../../application/contants'
 import { FixedReleases } from '../../../application/types'
 
@@ -21,7 +20,7 @@ export default function Card({ props, onPress }: CardProps) {
       ]}
       onPress={onPress}
     >
-      <CustomizeText style={styles.font}>{props.title}</CustomizeText>
+      <Text style={styles.font}>{props.title}</Text>
       <Monetary style={styles.font}>{props.value}</Monetary>
     </TouchableOpacity>
   )

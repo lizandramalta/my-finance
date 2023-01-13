@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { colors, dimension } from '../application/contants'
-import { InOrOut } from '../application/types'
-import CustomizeText from './customizeText'
+import { InOrOutType } from '../application/types'
+import CustomizeText from './text'
 
 interface InOrOutProps {
-  input: InOrOut
-  onSetStateInput: (value: InOrOut) => void
+  input: InOrOutType
+  onSetStateInput: (value: InOrOutType) => void
 }
 
 export default function InOrOut({
   input = 'input',
   onSetStateInput,
 }: InOrOutProps) {
-  const [typeSelected, setTypeSelected] = useState<InOrOut>(input)
+  const [typeSelected, setTypeSelected] = useState<InOrOutType>(input)
   const inputSelected = typeSelected === 'input'
   const outputSelected = typeSelected === 'output'
 

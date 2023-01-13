@@ -1,13 +1,11 @@
-import CustomizeButton from '../../components/customizeButton'
+import { Button } from '../../components'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { RootStackScreenProps } from '../../types'
+import { RootStackScreenProps } from '../../application/types'
 
 export default function Login({ navigation }: RootStackScreenProps<'Login'>) {
   return (
     <SafeAreaView>
-      <CustomizeButton onPress={() => navigation.navigate('Root')}>
-        Entrar
-      </CustomizeButton>
+      <Button onPress={() => navigation.navigate('Root')}>Entrar</Button>
     </SafeAreaView>
   )
 }

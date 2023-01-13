@@ -15,12 +15,8 @@ import {
   handleMoneyInput,
   handleMoneyInputValue,
 } from '../../application/utils'
-import ChangeIcon from '../../components/changeIcon'
-import CustomizeButton from '../../components/customizeButton'
-import CustomizeText from '../../components/customizeText'
-import InOrOut from '../../components/inOrOut'
-import Monetary from '../../components/monetary'
 import useInOrOut from '../../hooks/useInOrOut'
+import { ChangeIcon, Button, Text, InOrOut, Monetary } from '../../components'
 
 export default function FixedInfo({
   route,
@@ -48,7 +44,7 @@ export default function FixedInfo({
   function renderTitleData() {
     return (
       <View style={styles.infoDataContainer}>
-        <CustomizeText style={styles.infoData}>{release.title}</CustomizeText>
+        <Text style={styles.infoData}>{release.title}</Text>
         <TouchableOpacity onPress={() => isEditingTitle(true)}>
           <ChangeIcon />
         </TouchableOpacity>
@@ -101,24 +97,24 @@ export default function FixedInfo({
       <SafeAreaView style={styles.container}>
         <InOrOut input={inOrOutState} onSetStateInput={handleInOrOut} />
         <View style={styles.infoContainer}>
-          <CustomizeText type="medium" style={styles.infoLabel}>
+          <Text type="medium" style={styles.infoLabel}>
             Título
-          </CustomizeText>
+          </Text>
           {editingTitle ? renderTextInputTitle() : renderTitleData()}
         </View>
         <View style={styles.infoContainer}>
-          <CustomizeText type="medium" style={styles.infoLabel}>
+          <Text type="medium" style={styles.infoLabel}>
             Valor
-          </CustomizeText>
+          </Text>
           {editingValue ? renderTextInputValue() : renderValueData()}
         </View>
         <View style={styles.buttons}>
-          <CustomizeButton small onPress={() => onSave()}>
+          <Button small onPress={() => onSave()}>
             Salvar
-          </CustomizeButton>
-          <CustomizeButton small red onPress={() => onDelete()}>
+          </Button>
+          <Button small red onPress={() => onDelete()}>
             Excluir
-          </CustomizeButton>
+          </Button>
         </View>
       </SafeAreaView>
     </KeyboardAvoidingView>

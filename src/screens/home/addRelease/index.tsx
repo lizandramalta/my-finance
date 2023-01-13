@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { ReleaseTypes } from '../../../application/types'
-import CustomizeText from '../../../components/customizeText'
-import Select from '../../../components/select'
+import { Select, Text } from '../../../components'
 
 export default function AddRelease() {
   const releaseOptions: ReleaseTypes[] = ['Crédito', 'Débito', 'Parcelamento']
@@ -34,9 +33,9 @@ export default function AddRelease() {
   return (
     <SafeAreaView style={styles.container}>
       <Select options={releaseOptions} onChangeOption={renderForm} />
-      {renderDebitForm && <CustomizeText>Débito</CustomizeText>}
-      {renderCreditForm && <CustomizeText>Crédito</CustomizeText>}
-      {renderInstallmentForm && <CustomizeText>Parcelamento</CustomizeText>}
+      {renderDebitForm && <Text>Débito</Text>}
+      {renderCreditForm && <Text>Crédito</Text>}
+      {renderInstallmentForm && <Text>Parcelamento</Text>}
     </SafeAreaView>
   )
 }
