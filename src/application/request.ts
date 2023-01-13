@@ -1,5 +1,3 @@
-import { FixedReleases } from './types'
-
 const domain = 'http://192.168.0.180:3000'
 
 export async function get(path: string) {

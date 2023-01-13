@@ -1,11 +1,5 @@
 import { Ionicons } from '@expo/vector-icons'
-import {
-  forwardRef,
-  LegacyRef,
-  Ref,
-  useImperativeHandle,
-  useState,
-} from 'react'
+import { forwardRef, Ref, useImperativeHandle, useState } from 'react'
 import {
   ModalProps,
   View,

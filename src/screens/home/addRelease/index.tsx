@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import { ReleaseTypes } from '../../../application/types'
 import CustomizeText from '../../../components/customizeText'
