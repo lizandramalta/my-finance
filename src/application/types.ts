@@ -42,9 +42,10 @@ export type FixedReleases = {
   id?: number
   title: string
   value: number
-  input: boolean
+  inOrOut: InOrOut
 }
 
 //Other types
 
+export type InOrOut = 'input' | 'output'
 export type ReleaseTypes = 'Débito' | 'Crédito' | 'Parcelamento'

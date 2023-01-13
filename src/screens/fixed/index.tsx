@@ -16,13 +16,14 @@ import InOrOut from '../../components/inOrOut'
 import CustomizeText from '../../components/customizeText'
 import { colors, dimension } from '../../application/contants'
 import { handleMoneyInput } from '../../application/utils'
+import useInOrOut from '../../hooks/useInOrOut'
 
 export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   const [fixedReleases, setFixedReleases] = useState<FixedReleases[]>()
   const [refreshing, setRefreshing] = useState(false)
   const [titleInput, setTitleInput] = useState<string>()
   const [valueInput, setValueInput] = useState<string>()
-  const [input, isInput] = useState(true)
+  const { inOrOutState, handleInOrOut, reset } = useInOrOut('input')
   const bottomSheetRef = useRef<BottomSheetRef>(null)
 
   async function getFixedReleases() {
@@ -45,7 +46,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   function resetBottomSheet() {
     setTitleInput('')
     setValueInput('')
-    isInput(true)
+    reset()
     bottomSheetRef.current?.hideBottomSheet()
   }
 
@@ -53,7 +54,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
     const addRelease: FixedReleases = {
       title: titleInput as string,
       value: handleMoneyInput(valueInput as string),
-      input: input,
+      inOrOut: inOrOutState,
     }
     post('fixed-releases', JSON.stringify(addRelease))
     fixedReleases ? setFixedReleases([...fixedReleases, addRelease]) : null
@@ -63,7 +64,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   const renderBottomSheet = () => {
     return (
       <BottomSheet ref={bottomSheetRef}>
-        <InOrOut input={input} isInput={isInput} />
+        <InOrOut input={inOrOutState} onSetStateInput={handleInOrOut} />
         <CustomizeText style={styles.label} type="medium">
           Título
         </CustomizeText>

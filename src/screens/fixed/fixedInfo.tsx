@@ -20,13 +20,14 @@ import CustomizeButton from '../../components/customizeButton'
 import CustomizeText from '../../components/customizeText'
 import InOrOut from '../../components/inOrOut'
 import Monetary from '../../components/monetary'
+import useInOrOut from '../../hooks/useInOrOut'
 
 export default function FixedInfo({
   route,
   navigation,
 }: RootStackScreenProps<'FixedInfo'>) {
   const { release } = route.params
-  const [input, isInput] = useState(release.input)
+  const { inOrOutState, handleInOrOut } = useInOrOut(release.inOrOut)
   const [titleInput, setTitleInput] = useState<string>(release.title)
   const [valueInput, setValueInput] = useState<string>(
     handleMoneyInputValue(release.value)
@@ -86,7 +87,7 @@ export default function FixedInfo({
     const releaseEdited: FixedReleases = {
       title: titleInput as string,
       value: handleMoneyInput(valueInput),
-      input: input,
+      inOrOut: inOrOutState,
     }
     put('fixed-releases', JSON.stringify(releaseEdited), release.id!)
     navigation.pop()
@@ -98,7 +99,7 @@ export default function FixedInfo({
       style={styles.containerKeyboardView}
     >
       <SafeAreaView style={styles.container}>
-        <InOrOut input={input} isInput={isInput} />
+        <InOrOut input={inOrOutState} onSetStateInput={handleInOrOut} />
         <View style={styles.infoContainer}>
           <CustomizeText type="medium" style={styles.infoLabel}>
             Título

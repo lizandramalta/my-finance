@@ -1,31 +1,31 @@
 import { useState } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { colors, dimension } from '../application/contants'
+import { InOrOut } from '../application/types'
 import CustomizeText from './customizeText'
 
 interface InOrOutProps {
-  input: boolean
-  isInput?: React.Dispatch<React.SetStateAction<boolean>>
+  input: InOrOut
+  onSetStateInput: (value: InOrOut) => void
 }
 
-export default function InOrOut({ input = true, isInput }: InOrOutProps) {
-  const [typeSelected, setTypeSelected] = useState(input ? 0 : 1)
-  const indexType = {
-    input: 0,
-    output: 1,
-  }
-  const inputSelected = typeSelected === indexType.input
-  const outputSelected = typeSelected === indexType.output
+export default function InOrOut({
+  input = 'input',
+  onSetStateInput,
+}: InOrOutProps) {
+  const [typeSelected, setTypeSelected] = useState<InOrOut>(input)
+  const inputSelected = typeSelected === 'input'
+  const outputSelected = typeSelected === 'output'
 
-  function onSelect(index: number) {
-    if (inputSelected && index !== indexType.input) {
-      setTypeSelected(1)
-      isInput ? isInput(false) : null
+  function onSelect() {
+    if (inputSelected) {
+      setTypeSelected('output')
+      onSetStateInput('output')
     }
 
-    if (outputSelected && index !== indexType.output) {
-      setTypeSelected(0)
-      isInput ? isInput(true) : null
+    if (outputSelected) {
+      setTypeSelected('input')
+      onSetStateInput('input')
     }
   }
 
@@ -37,7 +37,7 @@ export default function InOrOut({ input = true, isInput }: InOrOutProps) {
     <View style={style.container}>
       <TouchableOpacity
         style={[styleInput.button, styleInput.backgroundInput]}
-        onPress={() => onSelect(indexType.input)}
+        onPress={onSelect}
       >
         <CustomizeText type="medium" style={styleInput.font}>
           Entrada
@@ -45,7 +45,7 @@ export default function InOrOut({ input = true, isInput }: InOrOutProps) {
       </TouchableOpacity>
       <TouchableOpacity
         style={[styleOutput.button, styleOutput.backgroundOutput]}
-        onPress={() => onSelect(indexType.output)}
+        onPress={onSelect}
       >
         <CustomizeText type="medium" style={styleOutput.font}>
           Saída

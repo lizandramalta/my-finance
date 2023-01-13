@@ -15,7 +15,10 @@ interface CardProps extends TouchableOpacityProps {
 export default function Card({ props, onPress }: CardProps) {
   return (
     <TouchableOpacity
-      style={[styles.container, props.input ? styles.input : styles.output]}
+      style={[
+        styles.container,
+        props.inOrOut === 'input' ? styles.input : styles.output,
+      ]}
       onPress={onPress}
     >
       <CustomizeText style={styles.font}>{props.title}</CustomizeText>
