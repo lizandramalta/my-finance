@@ -17,7 +17,6 @@ import Login from '../screens/login'
 import { colors, dimension, icons } from '../application/contants'
 import { Ionicons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native'
-import { IconProps } from '@expo/vector-icons/build/createIconSet'
 
 export default function Navigation() {
   return (

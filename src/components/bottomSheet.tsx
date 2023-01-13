@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import { colors } from '../application/contants'
 
-interface BottomSheetProps extends ModalProps {}
+type BottomSheetProps = ModalProps
 export interface BottomSheetRef {
   showBottomSheet: () => void
   hideBottomSheet: () => void

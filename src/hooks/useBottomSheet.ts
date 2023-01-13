@@ -1,4 +1,3 @@
-import { Ref } from 'react'
 import { BottomSheetRef } from '../components/bottomSheet'
 
 export default function useBottomSheet(ref: React.RefObject<BottomSheetRef>) {

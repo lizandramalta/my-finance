@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   RefreshControl,
   TextInput,
-  View,
 } from 'react-native'
 import { get, post } from '../../application/request'
 import { RootTabScreenProps, FixedReleases } from '../../application/types'
