@@ -4,14 +4,13 @@ import {
   StyleSheet,
   SafeAreaView,
   RefreshControl,
-  TextInput,
 } from 'react-native'
 import { get, post } from '../../application/request'
 import { RootTabScreenProps, FixedReleases } from '../../application/types'
-import { BottomSheet, Button, InOrOut, Text } from '../../components'
+import { BottomSheet, Button, InOrOut, Text, TextInput } from '../../components'
 import Card from './components/card'
 import { BottomSheetRef } from '../../components/bottomSheet'
-import { colors, dimension } from '../../application/contants'
+import { dimension } from '../../application/contants'
 import { handleMoneyInput } from '../../application/utils'
 import useInOrOut from '../../hooks/useInOrOut'
 import useBottomSheet from '../../hooks/useBottomSheet'
@@ -64,7 +63,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
     return (
       <BottomSheet ref={bottomSheetRef}>
         <InOrOut input={inOrOutState} onSetStateInput={handleInOrOut} />
-        <Text style={styles.label} type="medium">
+        <Text style={styles.label} type='medium'>
           Título
         </Text>
         <TextInput
@@ -72,14 +71,14 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
           onChangeText={setTitleInput}
           style={styles.input}
         />
-        <Text style={styles.label} type="medium">
+        <Text style={styles.label} type='medium'>
           Valor
         </Text>
         <TextInput
           value={valueInput}
           onChangeText={setValueInput}
           style={styles.input}
-          keyboardType="numeric"
+          keyboardType='numeric'
         />
         <Button style={styles.buttonModal} onPress={onConfirm}>
           Confirmar
@@ -127,10 +126,6 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: dimension.height * 0.04,
-    backgroundColor: colors.form,
-    padding: 4,
-    fontSize: 14,
-    fontFamily: 'QuicksandRegular',
     marginTop: 8,
   },
   buttonModal: {
