@@ -32,7 +32,11 @@ export default function AddRelease() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Select options={releaseOptions} onChangeOption={renderForm} />
+      <Select
+        options={releaseOptions}
+        onChangeOption={renderForm}
+        placeholder='Selecione o tipo de lançamento'
+      />
       {renderDebitForm && <Text>Débito</Text>}
       {renderCreditForm && <Text>Crédito</Text>}
       {renderInstallmentForm && <Text>Parcelamento</Text>}

@@ -7,16 +7,30 @@ import CustomizeText from './text'
 interface SelectProps<T> extends ViewProps {
   options: T[]
   onChangeOption: (item: T) => void
+  placeholder?: string
+  width?: number | string
 }
 
-export default function Select<T>({ options, onChangeOption }: SelectProps<T>) {
+export default function Select<T>({
+  options,
+  onChangeOption,
+  placeholder,
+  width,
+}: SelectProps<T>) {
   const [selectedOption, setSelectedOption] = useState<T>()
   const [showOption, setShowOption] = useState(false)
 
-  function handleOption(option: T) {
+  const styles = stylesFunction(width)
+
+  function handleSelectedOption(option: T) {
     onChangeOption(option)
     setSelectedOption(option)
     setShowOption(false)
+  }
+
+  function handleShowOptions() {
+    if (showOption) setShowOption(false)
+    else setShowOption(true)
   }
 
   function renderOptions() {
@@ -26,9 +40,9 @@ export default function Select<T>({ options, onChangeOption }: SelectProps<T>) {
           <TouchableOpacity
             style={styles.optionButton}
             key={option as string}
-            onPress={() => handleOption(option)}
+            onPress={() => handleSelectedOption(option)}
           >
-            <CustomizeText style={styles.optionText}>
+            <CustomizeText style={styles.text}>
               {option as string}
             </CustomizeText>
           </TouchableOpacity>
@@ -39,64 +53,67 @@ export default function Select<T>({ options, onChangeOption }: SelectProps<T>) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.selectView}>
-        <View style={styles.text}>
-          <CustomizeText>{selectedOption as string}</CustomizeText>
+      <TouchableOpacity onPress={handleShowOptions} style={styles.selectView}>
+        <View style={styles.textView}>
+          <CustomizeText style={styles.text} numberOfLines={1}>
+            {selectedOption ? (selectedOption as string) : placeholder}
+          </CustomizeText>
         </View>
-        <TouchableOpacity onPress={() => setShowOption(true)}>
-          <View style={styles.button}>
-            <Ionicons name="chevron-down" color="#fff" size={24} />
-          </View>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.iconContainer}>
+          <Ionicons name='chevron-down' color={colors.black} size={20} />
+        </View>
+      </TouchableOpacity>
       {showOption && renderOptions()}
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    width: '90%',
-  },
-  selectView: {
-    width: '100%',
-    flexDirection: 'row',
-    height: 27,
-    backgroundColor: colors.form,
-    borderWidth: 1,
-    borderColor: colors.black,
-  },
-  text: {
-    flex: 1,
-    paddingLeft: 8,
-    justifyContent: 'center',
-  },
-  button: {
-    width: 29,
-    height: 26,
-    backgroundColor: colors.blue,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  optionsView: {
-    width: '100%',
-    backgroundColor: colors.form,
-    elevation: 15,
-    shadowColor: 'black',
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-    shadowOffset: {
-      height: 2,
-      width: 0,
+const stylesFunction = (width?: number | string) =>
+  StyleSheet.create({
+    container: {
+      width: '90%',
     },
-  },
-  optionButton: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  optionText: {
-    lineHeight: 26,
-    fontSize: 16,
-  },
-})
+    selectView: {
+      width: width ? width : '100%',
+      flexDirection: 'row',
+      height: 27,
+      backgroundColor: colors.form,
+    },
+    textView: {
+      flex: 1,
+      paddingLeft: 8,
+      paddingRight: 8,
+      justifyContent: 'center',
+    },
+    text: {
+      lineHeight: 26,
+      fontSize: 16,
+    },
+    iconContainer: {
+      width: 29,
+      height: 26,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    optionsView: {
+      width: width ? width : '100%',
+      borderColor: colors.form,
+      borderLeftWidth: 1,
+      borderRightWidth: 1,
+      borderBottomWidth: 1,
+      elevation: 15,
+      shadowColor: 'black',
+      shadowOpacity: 0.2,
+      shadowRadius: 2,
+      shadowOffset: {
+        height: 2,
+        width: 0,
+      },
+    },
+    optionButton: {
+      width: '100%',
+      paddingLeft: 8,
+      borderColor: colors.form,
+      borderBottomWidth: 1,
+    },
+  })
