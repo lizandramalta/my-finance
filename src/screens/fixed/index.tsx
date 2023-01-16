@@ -10,8 +10,8 @@ import { RootTabScreenProps, FixedReleases } from '../../application/types'
 import { BottomSheet, Button, InOrOut, Text, TextInput } from '../../components'
 import Card from './components/card'
 import { BottomSheetRef } from '../../components/bottomSheet'
-import { dimension } from '../../application/contants'
-import { handleMoneyInput } from '../../application/utils'
+import { dimension, placeholder } from '../../application/contants'
+import { handleMoneyInput, moneyMask } from '../../application/utils'
 import useInOrOut from '../../hooks/useInOrOut'
 import useBottomSheet from '../../hooks/useBottomSheet'
 
@@ -20,6 +20,8 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   const [refreshing, setRefreshing] = useState(false)
   const [titleInput, setTitleInput] = useState<string>()
   const [valueInput, setValueInput] = useState<string>()
+  const [titleEmpty, isTitleEmpty] = useState(false)
+  const [valueEmpty, isValueEmpty] = useState(false)
   const { inOrOutState, handleInOrOut, reset } = useInOrOut('input')
   const bottomSheetRef = useRef<BottomSheetRef>(null)
   const { showBottomSheet, hideBottomSheet } = useBottomSheet(bottomSheetRef)
@@ -44,24 +46,34 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
   function resetBottomSheet() {
     setTitleInput('')
     setValueInput('')
+    isTitleEmpty(false)
+    isValueEmpty(false)
     reset()
     hideBottomSheet()
   }
 
+  function onChangeValueInput(value: string) {
+    setValueInput(moneyMask(value))
+  }
+
   function onConfirm() {
-    const addRelease: FixedReleases = {
-      title: titleInput as string,
-      value: handleMoneyInput(valueInput as string),
-      inOrOut: inOrOutState,
+    isTitleEmpty(!titleInput)
+    isValueEmpty(!valueInput)
+    if (titleInput && valueInput) {
+      const addRelease: FixedReleases = {
+        title: titleInput as string,
+        value: handleMoneyInput(valueInput as string),
+        inOrOut: inOrOutState,
+      }
+      post('fixed-releases', JSON.stringify(addRelease))
+      fixedReleases ? setFixedReleases([...fixedReleases, addRelease]) : null
+      resetBottomSheet()
     }
-    post('fixed-releases', JSON.stringify(addRelease))
-    fixedReleases ? setFixedReleases([...fixedReleases, addRelease]) : null
-    resetBottomSheet()
   }
 
   const renderBottomSheet = () => {
     return (
-      <BottomSheet ref={bottomSheetRef}>
+      <BottomSheet ref={bottomSheetRef} onDismiss={resetBottomSheet}>
         <InOrOut input={inOrOutState} onSetStateInput={handleInOrOut} />
         <Text style={styles.label} type='medium'>
           Título
@@ -71,15 +83,18 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
           onChangeText={setTitleInput}
           style={styles.input}
         />
+        {titleEmpty && <Text type='error'>Por favor, insira um título.</Text>}
         <Text style={styles.label} type='medium'>
           Valor
         </Text>
         <TextInput
           value={valueInput}
-          onChangeText={setValueInput}
+          onChangeText={onChangeValueInput}
           style={styles.input}
           keyboardType='numeric'
+          placeholder={placeholder.money}
         />
+        {valueEmpty && <Text type='error'>Por favor, insira um valor.</Text>}
         <Button style={styles.buttonModal} onPress={onConfirm}>
           Confirmar
         </Button>
@@ -102,7 +117,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
             onPress={() => navigation.navigate('FixedInfo', { release: item! })}
           />
         ))}
-        <Button add style={styles.button} onPress={() => showBottomSheet()} />
+        <Button add style={styles.button} onPress={showBottomSheet} />
       </ScrollView>
       {renderBottomSheet()}
     </SafeAreaView>

@@ -24,3 +24,11 @@ export const icons = {
   Extract: 'receipt',
   Profile: 'person',
 }
+
+export const placeholder = {
+  money: '0,00',
+  cpf: '000.000.000-00',
+  phone: '(00) 00000-0000',
+  cep: '00000-000',
+  date: 'dd/mm/aaaa',
+}

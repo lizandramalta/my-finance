@@ -17,7 +17,10 @@ export interface BottomSheetRef {
   hideBottomSheet: () => void
 }
 
-function BottomSheet({ children }: BottomSheetProps, ref: Ref<BottomSheetRef>) {
+function BottomSheet(
+  { children, onDismiss }: BottomSheetProps,
+  ref: Ref<BottomSheetRef>
+) {
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false)
 
   function showBottomSheet() {
@@ -36,9 +39,10 @@ function BottomSheet({ children }: BottomSheetProps, ref: Ref<BottomSheetRef>) {
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="fade"
+        animationType='fade'
         transparent={true}
         visible={bottomSheetVisible}
+        onDismiss={onDismiss}
       >
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -53,7 +57,7 @@ function BottomSheet({ children }: BottomSheetProps, ref: Ref<BottomSheetRef>) {
               }}
               onPress={hideBottomSheet}
             >
-              <Ionicons name="close-circle" size={24} color={colors.blue} />
+              <Ionicons name='close-circle' size={24} color={colors.blue} />
             </TouchableOpacity>
             {children}
           </View>

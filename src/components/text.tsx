@@ -1,7 +1,8 @@
 import { StyleSheet, TextProps, Text } from 'react-native'
+import { colors } from '../application/contants'
 
 export interface CustomizeTextProps {
-  type?: 'regular' | 'medium' | 'bold'
+  type?: 'regular' | 'medium' | 'bold' | 'error'
 }
 
 export default function CustomizeText({
@@ -24,5 +25,11 @@ const styles = StyleSheet.create({
   bold: {
     fontFamily: 'QuicksandBold',
     fontWeight: 'normal',
+  },
+  error: {
+    fontFamily: 'QuicksandMedium',
+    fontWeight: 'normal',
+    color: colors.red,
+    width: '100%',
   },
 })

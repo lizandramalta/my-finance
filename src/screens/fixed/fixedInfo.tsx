@@ -3,20 +3,27 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { colors, dimension } from '../../application/contants'
+import { dimension } from '../../application/contants'
 import { deleteById, put } from '../../application/request'
 import { FixedReleases, RootStackScreenProps } from '../../application/types'
 import {
   handleMoneyInput,
   handleMoneyInputValue,
+  moneyMask,
 } from '../../application/utils'
 import useInOrOut from '../../hooks/useInOrOut'
-import { ChangeIcon, Button, Text, InOrOut, Monetary } from '../../components'
+import {
+  ChangeIcon,
+  Button,
+  Text,
+  InOrOut,
+  Monetary,
+  TextInput,
+} from '../../components'
 
 export default function FixedInfo({
   route,
@@ -52,13 +59,17 @@ export default function FixedInfo({
     )
   }
 
+  function onChangeValueInput(value: string) {
+    setValueInput(moneyMask(value))
+  }
+
   function renderTextInputValue() {
     return (
       <TextInput
         value={valueInput}
-        onChangeText={setValueInput}
+        onChangeText={onChangeValueInput}
         style={styles.input}
-        keyboardType="numeric"
+        keyboardType='numeric'
       />
     )
   }
@@ -97,22 +108,22 @@ export default function FixedInfo({
       <SafeAreaView style={styles.container}>
         <InOrOut input={inOrOutState} onSetStateInput={handleInOrOut} />
         <View style={styles.infoContainer}>
-          <Text type="medium" style={styles.infoLabel}>
+          <Text type='medium' style={styles.infoLabel}>
             Título
           </Text>
           {editingTitle ? renderTextInputTitle() : renderTitleData()}
         </View>
         <View style={styles.infoContainer}>
-          <Text type="medium" style={styles.infoLabel}>
+          <Text type='medium' style={styles.infoLabel}>
             Valor
           </Text>
           {editingValue ? renderTextInputValue() : renderValueData()}
         </View>
         <View style={styles.buttons}>
-          <Button small onPress={() => onSave()}>
+          <Button small onPress={onSave}>
             Salvar
           </Button>
-          <Button small red onPress={() => onDelete()}>
+          <Button small red onPress={onDelete}>
             Excluir
           </Button>
         </View>
@@ -155,10 +166,6 @@ const styles = StyleSheet.create({
   input: {
     width: '100%',
     height: dimension.height * 0.04,
-    backgroundColor: colors.form,
-    padding: 4,
-    fontSize: 14,
-    fontFamily: 'QuicksandRegular',
-    marginTop: 8,
+    marginTop: 2,
   },
 })

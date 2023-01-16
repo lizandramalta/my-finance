@@ -6,6 +6,7 @@ export default function CustomizeTextInput({
   value,
   keyboardType,
   onChangeText,
+  placeholder,
 }: TextInputProps) {
   return (
     <TextInput
@@ -13,6 +14,7 @@ export default function CustomizeTextInput({
       value={value}
       onChangeText={onChangeText}
       keyboardType={keyboardType}
+      placeholder={placeholder}
     />
   )
 }
