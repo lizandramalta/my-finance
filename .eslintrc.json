@@ -79,6 +79,9 @@
     "@typescript-eslint/no-non-null-assertion": "off"
   },
   "settings": {
+    "react": {
+      "version": "18.0.0"
+    },
     "import/resolver": {
       "typescript": {},
       "node": {
