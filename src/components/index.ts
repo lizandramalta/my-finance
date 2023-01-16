@@ -6,6 +6,7 @@ import Monetary from './monetary'
 import Select from './select'
 import Text from './text'
 import TextInput from './textInput'
+import RequiredFieldLabel from './requiredFildLabel'
 
 export {
   BottomSheet,
@@ -16,4 +17,5 @@ export {
   Select,
   Text,
   TextInput,
+  RequiredFieldLabel,
 }

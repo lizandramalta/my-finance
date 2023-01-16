@@ -7,7 +7,14 @@ import {
 } from 'react-native'
 import { get, post } from '../../application/request'
 import { RootTabScreenProps, FixedReleases } from '../../application/types'
-import { BottomSheet, Button, InOrOut, Text, TextInput } from '../../components'
+import {
+  BottomSheet,
+  Button,
+  InOrOut,
+  RequiredFieldLabel,
+  Text,
+  TextInput,
+} from '../../components'
 import Card from './components/card'
 import { BottomSheetRef } from '../../components/bottomSheet'
 import { dimension, placeholder } from '../../application/contants'
@@ -83,7 +90,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
           onChangeText={setTitleInput}
           style={styles.input}
         />
-        {titleEmpty && <Text type='error'>Por favor, insira um título.</Text>}
+        {titleEmpty && <RequiredFieldLabel />}
         <Text style={styles.label} type='medium'>
           Valor
         </Text>
@@ -94,7 +101,7 @@ export default function Fixed({ navigation }: RootTabScreenProps<'Fixed'>) {
           keyboardType='numeric'
           placeholder={placeholder.money}
         />
-        {valueEmpty && <Text type='error'>Por favor, insira um valor.</Text>}
+        {valueEmpty && <RequiredFieldLabel />}
         <Button style={styles.buttonModal} onPress={onConfirm}>
           Confirmar
         </Button>
