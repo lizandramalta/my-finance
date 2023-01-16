@@ -7,6 +7,7 @@ export default function CustomizeTextInput({
   keyboardType,
   onChangeText,
   placeholder,
+  multiline,
 }: TextInputProps) {
   return (
     <TextInput
@@ -15,6 +16,7 @@ export default function CustomizeTextInput({
       onChangeText={onChangeText}
       keyboardType={keyboardType}
       placeholder={placeholder}
+      multiline={multiline}
     />
   )
 }

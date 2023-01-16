@@ -7,6 +7,9 @@ import Select from './select'
 import Text from './text'
 import TextInput from './textInput'
 import RequiredFieldLabel from './requiredFildLabel'
+import DefaultForm from './Forms/defaultForm'
+import DateForm from './Forms/dateForm'
+import CreditCardForm from './Forms/creditCardForm'
 
 export {
   BottomSheet,
@@ -18,4 +21,7 @@ export {
   Text,
   TextInput,
   RequiredFieldLabel,
+  DefaultForm,
+  DateForm,
+  CreditCardForm,
 }

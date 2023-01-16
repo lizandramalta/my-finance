@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, ViewProps } from 'react-native'
 import { colors, dimension } from '../application/contants'
 import { InOrOutType } from '../application/types'
 import CustomizeText from './text'
 
-interface InOrOutProps {
+interface InOrOutProps extends ViewProps {
   input: InOrOutType
   onSetStateInput: (value: InOrOutType) => void
 }
@@ -12,6 +12,7 @@ interface InOrOutProps {
 export default function InOrOut({
   input = 'input',
   onSetStateInput,
+  style,
 }: InOrOutProps) {
   const [typeSelected, setTypeSelected] = useState<InOrOutType>(input)
   const inputSelected = typeSelected === 'input'
@@ -29,33 +30,35 @@ export default function InOrOut({
     }
   }
 
-  const style = styles()
-  const styleInput = styles(inputSelected)
-  const styleOutput = styles(!inputSelected)
+  const styles = stylesFunction()
+  const styleInput = stylesFunction(inputSelected)
+  const styleOutput = stylesFunction(!inputSelected)
 
   return (
-    <View style={style.container}>
-      <TouchableOpacity
-        style={[styleInput.button, styleInput.backgroundInput]}
-        onPress={onSelect}
-      >
-        <CustomizeText type="medium" style={styleInput.font}>
-          Entrada
-        </CustomizeText>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styleOutput.button, styleOutput.backgroundOutput]}
-        onPress={onSelect}
-      >
-        <CustomizeText type="medium" style={styleOutput.font}>
-          Saída
-        </CustomizeText>
-      </TouchableOpacity>
+    <View style={style}>
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={[styleInput.button, styleInput.backgroundInput]}
+          onPress={onSelect}
+        >
+          <CustomizeText type='medium' style={styleInput.font}>
+            Entrada
+          </CustomizeText>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styleOutput.button, styleOutput.backgroundOutput]}
+          onPress={onSelect}
+        >
+          <CustomizeText type='medium' style={styleOutput.font}>
+            Saída
+          </CustomizeText>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
 
-const styles = (isInput?: boolean) =>
+const stylesFunction = (isInput?: boolean) =>
   StyleSheet.create({
     container: {
       width: dimension.width - 32,

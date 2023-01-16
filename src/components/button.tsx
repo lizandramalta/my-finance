@@ -24,9 +24,9 @@ export default function CustomizeButton({
   const customizeStyles = styles(small, red)
   return (
     <TouchableOpacity style={[customizeStyles.button, style]} onPress={onPress}>
-      <Text style={customizeStyles.text} type="medium">
+      <Text style={customizeStyles.text} type='medium'>
         {add ? (
-          <Ionicons name="add-circle" color={colors.white} size={32} />
+          <Ionicons name='add-circle' color={colors.white} size={32} />
         ) : (
           children
         )}
